@@ -54,7 +54,7 @@ thetabis=theta[extract]
 thetaminbis=thetamin[extract]
 thetamaxbis=thetamax[extract]
 
-ndim, nwalkers, iterations, nthread = len(extract), 200,100, 7
+ndim, nwalkers, iterations, nthread = len(extract), 100,200, 8
 error = (2.84e-05)
 sigerror=1/(-2.*error**2.)
 def lnprior(thetabis):
@@ -83,5 +83,5 @@ with Pool(processes=nthread) as pool:
 
 samples = sampler.chain
 
-np.save("opti_{}_{}_{}.npy".format(ndim, nwalkers, iterations),samples)
+np.save("results/optimization/opti_{}_{}_{}.npy".format(ndim, nwalkers, iterations),(samples,thetamin,thetamax,model.param_names))
 
