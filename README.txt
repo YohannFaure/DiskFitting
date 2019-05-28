@@ -11,7 +11,7 @@ First, you should import my repository :
 Then you should install the latest version of Emcee (which might not be in the usual repos)
 `git clone https://github.com/dfm/emcee.git`
 `cd emcee`
-`python setup.py install`
+`sudo python3 setup.py install`
 
 ## How to use :
 

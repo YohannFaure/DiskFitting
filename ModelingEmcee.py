@@ -55,7 +55,7 @@ thetaminbis=thetamin[extract]
 thetamaxbis=thetamax[extract]
 
 ndim, nwalkers, iterations, nthread = len(extract), 100,200, 8
-error = (2.84e-05)
+error = (2.84e-05) #mJ/beam, RMS of noise
 sigerror=1/(-2.*error**2.)
 def lnprior(thetabis):
     if np.all((thetaminbis<thetabis)*(thetabis<thetamaxbis)):
