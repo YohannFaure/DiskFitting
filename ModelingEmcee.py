@@ -65,9 +65,9 @@ thetamaxbis=thetamax[extract]
 ##### Defining the fitting parameters
 ndim=len(extract)
 ### Set these as you want them
-nwalkers   = 100
-iterations = 200
-nthread    =   8
+nwalkers   = 200
+iterations = 3000
+nthread    =   10
 
 ##### Set some variables
 error = (2.84e-05) #mJ/beam, RMS of noise
