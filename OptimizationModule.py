@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+'''
+This module contains the needed functions in order to make some EMCEE and classical optimisation, such as models
+'''
 from FunctionsModule import *
 from astropy.modeling import models, fitting
 import emcee
@@ -30,29 +36,6 @@ def GaussianRing(xx, yy, amplitude=1., xc=0., yc=0., width=1., a=1.,b=1.,theta=0
     # compute gaussian
     return( amplitude * np.exp(  ( -.5*(a*b)*(width)**-2. ) * (u**2.) ) ) 
 
-
-'''
-@models.custom_model
-def LinearRing(x, y, amplitude=1., xc=0., yc=0., a=1.,b=1.,theta=0.,end=200.):
-    """
-    This is vestigial. It's a ring designed to fit a linear by parts profile. It is non-physical and should therefore not be used.
-    """
-    # Same as GaussianRing
-    c=math.cos(theta)
-    s=math.sin(theta)
-    xx=x-xc
-    yy=y-yc
-    u=np.sqrt(((xx*c+yy*s)/a)**2.+((yy*c-xx*s)/b)**2.) - 1.
-    # Define the end of the second linear part
-    end=end/np.sqrt(a*b)
-    interbool=(u>0.)
-    boolout=np.logical_and(interbool,(u<end))
-    # Apply the linear mask
-    ampout = boolout*(end-u)/end
-    ampin = np.invert(interbool)*(-np.min(u)+u)/(-np.min(u))
-    amp = ampout+ampin
-    return(amp*amplitude)
-'''
 
 @models.custom_model
 def FFRing(xx,yy,i0=1.,i1=1.,sig0=1.,sig1=1.,gam=1.,xc=0.,yc=0.,a=1.,b=1.,theta=0.):
@@ -110,20 +93,27 @@ def ClassicalOptimization(model):
     model.theta_1.fixed=False
     model.theta_3.fixed=False
     model.theta_4.fixed=False
-    ##### Double optimization
+    ##### Double optimization, you can increase the number of optimization by repeating the pattern
     model=fit_LSQ(model,xx,yy,image)
     print("Classical Optimization 2/3 done")
     model=fit_LSQ(model,xx,yy,image)
     print("Classical Optimization done")
+    #####
     return(model.parameters)
 
 
 def EvolutionPlot(samples,nrows,ncols,figsize=(20,20),labels=None,limits=None):
+    """
+    Plots the evolution of parameters during a Emcee optimization.
+    samples is the chain of the outpu of the Emcee computation
+    nrow,ncols are the shape of the plot
+    """
+    ##### Make the figure
     fig, axes = plt.subplots(nrows=nrows,ncols=ncols, figsize=figsize, sharex=True)
     iterations,nwalkers,ndims=samples.shape
-    if labels==None:
+    if labels==None: # If no label given, just number it
         labels=range(ndims)
-    if limits:
+    if limits: # If thetamin and thetamax given in limits, they are shown
         thetamin,thetamax=limits
         for i in range(ndims):
             ax = axes.flatten()[i]
