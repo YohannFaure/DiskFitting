@@ -65,8 +65,8 @@ thetamaxbis=thetamax[extract]
 ##### Defining the fitting parameters
 ndim=len(extract)
 ### Set these as you want them
-nwalkers   = 200
-iterations = 3000
+nwalkers   = 300
+iterations =5000
 nthread    =   10
 
 ##### Set some variables
