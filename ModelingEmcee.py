@@ -111,9 +111,9 @@ if __name__=='__main__':
         ##### Initialising randomly the walkers in a small ball, centered on the initial guess
         pos = np.array([(1. + 1e-3*np.random.randn(ndim))*thetabis for i in range(nwalkers)])
     ##### Starting the mcmc
-    #with Pool(processes=nthreads) as pool: # Multithread, yay
-    sampler = emcee.EnsembleSampler(nwalkers, ndim, lnprob)#, pool=pool) # define the sampler
-    t=sampler.run_mcmc(pos, iterations, progress=True) # Run it
+    with Pool(processes=nthreads) as pool: # Multithread, yay
+        sampler = emcee.EnsembleSampler(nwalkers, ndim, lnprob, pool=pool) # define the sampler
+        t=sampler.run_mcmc(pos, iterations, progress=True) # Run it
 
     ##### Save the data
     samples = sampler.chain
