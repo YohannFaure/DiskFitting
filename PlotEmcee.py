@@ -12,7 +12,7 @@ import math
 import corner
 #from ModelingEmcee import *
 ##### Open the data
-location = '/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_5000.npy'
+location = '/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part2.npy'
 samples,thetaminbis,thetamaxbis,labels = np.load(location)
 # thetamin and thetamax are defined in the ModelingEmcee.py file. It correspnds to the limits of the fitting. Labels are just the names of the parameters
 
