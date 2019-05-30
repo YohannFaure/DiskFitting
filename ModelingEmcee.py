@@ -8,8 +8,8 @@ from OptimizationModule import *
 from multiprocessing import Pool
 
 ##### Because we don't want each thread to use multiple core for numpy computation.
-import os
-os.environ["OMP_NUM_THREADS"] = "1"
+#import os
+#os.environ["OMP_NUM_THREADS"] = "1"
 
 ##### Define the model used to fit, the comments are the very basic guess I first had for my model
 ring1=FFRing()#i0=0.0036,i1=0.0036,sig0=1.,sig1=0.1,gam=1.6,xc=0.,yc=0.,a=50.,b=50.,theta=0.)
@@ -111,9 +111,9 @@ if __name__=='__main__':
         ##### Initialising randomly the walkers in a small ball, centered on the initial guess
         pos = np.array([(1. + 1e-3*np.random.randn(ndim))*thetabis for i in range(nwalkers)])
     ##### Starting the mcmc
-    with Pool(processes=nthreads) as pool: # Multithread, yay
-        sampler = emcee.EnsembleSampler(nwalkers, ndim, lnprob, pool=pool) # define the sampler
-        t=sampler.run_mcmc(pos, iterations, progress=True) # Run it
+    #with Pool(processes=nthreads) as pool: # Multithread, yay
+    sampler = emcee.EnsembleSampler(nwalkers, ndim, lnprob)#, pool=pool) # define the sampler
+    t=sampler.run_mcmc(pos, iterations, progress=True) # Run it
 
     ##### Save the data
     samples = sampler.chain
