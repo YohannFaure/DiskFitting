@@ -106,7 +106,7 @@ if __name__=='__main__':
     iterations = args.iterations
     nthreads   = args.nthreads
     if args.resume:
-        pos = np.load(args.resume)[0][:nwalkers,-1,:]
+        pos = np.load(args.resume,allow_pickle=True)[0][:nwalkers,-1,:]
     else :
         ##### Initialising randomly the walkers in a small ball, centered on the initial guess
         pos = np.array([(1. + 1e-3*np.random.randn(ndim))*thetabis for i in range(nwalkers)])
