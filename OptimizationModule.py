@@ -3,6 +3,7 @@
 
 '''
 This module contains the needed functions in order to make some EMCEE and classical optimisation, such as models
+You need to adapt it to open your own file.
 '''
 from FunctionsModule import *
 from astropy.modeling import models, fitting
@@ -10,8 +11,8 @@ import emcee
 import math
 
 ##### Opening the data
-location="J1615_edit.fits"
-xc,yc,inc,pa=296.7947187252183, 298.211358761549, 0.7954129826814671, 2.5385352672838146
+location="J1615_edit.fits" # Choose your file
+xc,yc,inc,pa=296.7947187252183, 298.211358761549, 0.7954129826814671, 2.5385352672838146 # pix,pix,rad,rad
 header,image=openimage(location)
 image=resizedimage(image,1500,1500,400)
 ##### Making the mesh
@@ -138,4 +139,6 @@ def EvolutionPlot(samples,nrows,ncols,figsize=(20,20),labels=None,limits=None):
 def CornerPlot(samples):
     import corner
     figure = corner.corner(samples)
-    
+
+if __name__=='__main__':
+    print('This is supposed to be imported by ModelingEmcee.py. Read the code')

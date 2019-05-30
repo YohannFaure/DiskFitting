@@ -34,16 +34,16 @@ theta=np.array([ 2.23181626e-03, -1.07790689e+00, -4.16901180e+00,  1.59107549e+
         4.82086253e+01,  5.09698076e+01,  1.22922435e-01])                       #GaussianRing
 
 ##### Define the limits for theta
-thetamax=np.array([ 0.005, 5, 5, 20, 20, np.pi+0.1, #
-        0.01, 0.01, 2, 2, 2, 10, 10, 100, 100, np.pi+0.1, #
-        0.001, 10, 10, 70, 300, 300, np.pi+0.1, #
+thetamax=np.array([ 0.005, 10, 10, 20, 20, np.pi+0.1, #
+        0.01, 0.01, 2, 2, 5, 10, 10, 100, 100, np.pi+0.1, #
+        0.001, 10, 10, 100, 300, 300, np.pi+0.1, #
         0.001, 10, 10, 200, 300, 300, np.pi+0.1, #
         0.01, 5, 5, 25, 100, 100, np.pi+0.01],dtype=np.float64) #
 
-thetamin=np.array([ 0., -5 ,-5 , 5, 5, -np.pi-0.1, #
+thetamin=np.array([ 0., -10 ,-10 , 5, 5, -np.pi-0.1, #
         0, 0, 0.01, 0.01, 0.01, -10, -10, 10, 10, -np.pi-0.1, #
-        0, -10, -10, 10, 200, 200, -np.pi-0.1, #
-        0, -10, -10, 10, 200, 200, -np.pi-0.1, #
+        0, -10, -10, 5, 200, 200, -np.pi-0.1, #
+        0, -10, -10, 10, 180, 180, -np.pi-0.1, #
         0.0001, -5, -5, 5, 10, 10, -np.pi-0.01],dtype=np.float64) #
 
 ##### set the model
@@ -64,13 +64,9 @@ thetamaxbis=thetamax[extract]
 
 ##### Defining the fitting parameters
 ndim=len(extract)
-### Set these as you want them
-nwalkers   = 300
-iterations =5000
-nthread    =   10
 
 ##### Set some variables
-error = (2.84e-05) #mJ/beam, RMS of noise
+error = (2.84e-05) #mJ/beam, RMS of noise, adapt it to your image
 sigerror=1./(-2.*error**2.)
 
 ##### Set some cost functions
@@ -96,15 +92,30 @@ def lnprob(thetabis):
         return((-np.inf))
     return(lp + lnlike(thetabis))
 
-##### Initialising randomly the walkers in a small ball, centered on the initial guess
-pos = np.array([(1. + 1e-3*np.random.randn(ndim))*thetabis for i in range(nwalkers)])
+if __name__=='__main__':
+    import argparse
+    parser = argparse.ArgumentParser(description = 'arguments')
+    parser.add_argument("nwalkers", help = "Number of walkers",type = int)
+    parser.add_argument("iterations", help = "number of iterations",type = int)
+    parser.add_argument("nthreads", help = "Number of cpu threads",type = int)
+    parser.add_argument("--suffix", help = "Suffix to file name.",type = str,default='')
+    parser.add_argument("--resume", help = "File to resume training",type = str,default=None)
+    args = parser.parse_args()
+    ### Set these as you want them
+    nwalkers   = args.nwalkers
+    iterations = args.iterations
+    nthreads   = args.nthreads
+    if args.resume:
+        pos = np.load(args.resume)[0][:nwalkers,-1,:]
+    else :
+        ##### Initialising randomly the walkers in a small ball, centered on the initial guess
+        pos = np.array([(1. + 1e-3*np.random.randn(ndim))*thetabis for i in range(nwalkers)])
+    ##### Starting the mcmc
+    with Pool(processes=nthreads) as pool: # Multithread, yay
+        sampler = emcee.EnsembleSampler(nwalkers, ndim, lnprob, pool=pool) # define the sampler
+        t=sampler.run_mcmc(pos, iterations, progress=True) # Run it
 
-##### Starting the mcmc
-with Pool(processes=nthread) as pool: # Multithread, yay
-    sampler = emcee.EnsembleSampler(nwalkers, ndim, lnprob, pool=pool) # define the sampler
-    t=sampler.run_mcmc(pos, iterations, progress=True) # Run it
-
-##### Save the data
-samples = sampler.chain
-np.save("results/optimization/opti_{}_{}_{}.npy".format(ndim, nwalkers, iterations),(samples,thetamin,thetamax,model.param_names))
+    ##### Save the data
+    samples = sampler.chain
+    np.save("results/optimization/opti_{}_{}_{}{}.npy".format(ndim, nwalkers, iterations,args.suffix),(samples,thetamin,thetamax,model.param_names))
 

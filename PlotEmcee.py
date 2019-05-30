@@ -10,10 +10,10 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import math
 import corner
-
+#from ModelingEmcee import *
 ##### Open the data
-location = '/home/yohann/Desktop/Stage2019/code/results/optimization/opti_37_100_200.npy'
-samples,thetamin,thetamax,labels = np.load(location)
+location = '/home/yohann/Desktop/Stage2019/code/results/optimization/opti_37_300_5000.npy'
+samples,thetaminbis,thetamaxbis,labels = np.load(location)
 # thetamin and thetamax are defined in the ModelingEmcee.py file. It correspnds to the limits of the fitting. Labels are just the names of the parameters
 
 ##### Get the shape of the plot
@@ -29,8 +29,9 @@ for i in range(ndims):
     _=ax.set_xlim(0, iterations)
     _=ax.set_ylabel(labels[i])
 #    _=ax.yaxis.set_label_coords(-0.1, 0.5)
-#    _=ax.plot([0,iterations],[thetaminbis[i],thetaminbis[i]])
-#    _=ax.plot([0,iterations],[thetamaxbis[i],thetamaxbis[i]])
+    _=ax.plot([0,iterations],[thetaminbis[i],thetaminbis[i]])
+    _=ax.plot([0,iterations],[thetamaxbis[i],thetamaxbis[i]])
+
 _=ax.set_xlabel('iterations')
 plt.tight_layout()
 plt.show()
