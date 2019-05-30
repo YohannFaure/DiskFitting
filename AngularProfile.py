@@ -84,7 +84,7 @@ def AngularProfilePlot(location,inc,pa,r,deltar,w,meann):
 
 if __name__=='__main__':
     ##### Inputs
-    location = '/home/yohann/Desktop/Stage2019/code/J1615_edit.fits'
+    location = '/home/yohann/Desktop/Stage2019/DiskFitting/J1615_edit.fits'
     inc,pa=4.59835388e+01,-3.42477693e+01
     r=20
     deltar=5
