@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+'''
+If you need to merge optimizations files générated with ModelingEmcee, with the option --resume, just use that.
+
+BEWARE, it's recursive (I wanted to have fun) and might use some memory.
+'''
 import numpy as np
 
 def mergetworesults(a,b):

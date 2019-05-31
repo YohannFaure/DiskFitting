@@ -7,6 +7,7 @@ This program computes a binned profile of intensity function of radius for an im
 For my image :
 inc,pa=4.59835388e+01,-3.42477693e+01
 
+python3 RadialProfile.py file inc pa --args
 python3 RadialProfile.py J1615_edit.fits 4.59835388e+01 32.62477693e+01 12.5 --CenterAndWidth '(1500,1500,200)'
 
 """

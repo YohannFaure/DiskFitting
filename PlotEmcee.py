@@ -5,7 +5,7 @@
 This is designed to make some plots with an already generated samplers list.
 
 usage example : 
-python3 PlotEmcee.py results/optimization/opti_37_300_1000part4.npy --save hahaha --size '(11.25,15)'
+python3 PlotEmcee.py results/optimization/opti_37_300_1000part5.npy --save hahaha --size '(11.25,15)'
 '''
 
 import numpy as np
@@ -42,18 +42,20 @@ def multiplot(samples,figshape=None,size=(20,25),save=None,limits=None):
     plt.tight_layout()
     ##### save
     if save:
-        plt.savefig('{}_multiplot.png'.format(save),dpi=600)
+        plt.savefig('results/{}_multiplot.png'.format(save),dpi=600)
     else:
         plt.show()
     return(None)
 
 def cornerplot(samples,labels,save=None):
-    """Just makes a cornerplot, but makes it easier"""
+    """Just makes a cornerplot, but makes it easier
+    Beware of the segmentation faults..."""
     nwalkers,iterations,ndims = samples.shape
-    cornering=(samples[:,-iterations//2:,:].reshape((-1,ndims)))
-    fig = corner.corner(cornering, quantiles=[0.16, 0.50, 0.84],labels=labels,show_titles=True,label_kwargs={'labelpad':20, 'fontsize':0}, fontsize=8)
+    ndims=min(30,ndims)
+    cornering=(samples[:,-iterations//2:,:ndims].reshape((-1,ndims)))
+    fig = corner.corner(cornering, quantiles=[0.16, 0.50, 0.84],labels=labels[:ndims],show_titles=True,label_kwargs={'labelpad':20, 'fontsize':0}, fontsize=8)
     if save:
-        fig.savefig("{}_cornerplot.png".format(save),dpi=600)
+        fig.savefig("results/{}_cornerplot.png".format(save),dpi=300)
     else:
         fig.show()
     return(None)
@@ -65,7 +67,7 @@ if __name__=="__main__":
     parser.add_argument("location", help = "File to use as input.",type = str)
     parser.add_argument("--figshape", help = "Shape of the multiple plot.",type = str,default="None")
     parser.add_argument("--size", help = "Size of the multiple plot.",type = str,default="(20,25)")
-    parser.add_argument("--save", help = "Will not plot the result and only give it if present.",type = str, default="None")
+    parser.add_argument("--save", help = "Will not plot the result and only give it if present.",type = str, default=None)
     args = parser.parse_args()
     ##### Open the data
     #location = '/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_5000part3.npy'

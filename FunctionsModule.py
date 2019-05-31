@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-##############################################################################
-#                               J1615  Analysis                              #
-##############################################################################
-
 '''
 Basinc data fitting functions for astrophysics.
 Python3.7
@@ -269,11 +265,12 @@ def polynomean(a,nslide,order):
     """Polynomial sliding mean"""
     return(savgol_filter(a, nslide, order))
 
-
-##### Find tilt of a GaussianLike profile
-
 def quadcost(img,model):
     return(np.sum((img-model)**2))
+
+def showi(image):
+    plt.imshow(image)
+    plt.show()
 
 ##### Profiles
 
@@ -315,15 +312,7 @@ def angularprofile(image,rr,angles,radius,rwidth):
     return(np.array(coords),image)
 
 
-
-
-
-def showi(image):
-    plt.imshow(image)
-    plt.show()
-
-
-
+##### Higly custom, probably not what you are looking for
 def modelplot2(model,image,cmap,header,size=(4.77,4.3),save='QuadplotSecondEdition{}.png'.format('test')):#time())):
     """
     Plots a quadri-images graph, need to be adapted to your own plot, as it is higgly custom...

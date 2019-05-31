@@ -9,6 +9,8 @@ r+-deltar=radius of the profile (pixels)
 w = width of the image (must be higher than projected radius of the profile), the smaller the faster the program.
 
 meann = averaging parameter, the higher the smoother
+
+You have to adapt it for your needs. It's not supposed to be run as is.
 """
 
 from FunctionsModule import *

@@ -11,7 +11,10 @@ for more detail, use python help or contact
 Yohann Faure
 yohann.faure@ens-lyon.fr
 
+
+
 Launching example :
+python3 TiltFinder.py file --args
 python3 TiltFinder.py J1615_edit.fits --width 1400 --save False
 '''
 

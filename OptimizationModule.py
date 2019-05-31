@@ -136,9 +136,5 @@ def EvolutionPlot(samples,nrows,ncols,figsize=(20,20),labels=None,limits=None):
     return(None)
 
 
-def CornerPlot(samples):
-    import corner
-    figure = corner.corner(samples)
-
 if __name__=='__main__':
     print('This is supposed to be imported by ModelingEmcee.py. Read the code')
