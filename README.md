@@ -8,11 +8,19 @@ requirements :
 First, you should import my repository :
 `git clone https://github.com/YohannFaure/DiskFitting.git`
 
+
 Then you should install the latest version of Emcee (which might not be in the usual repos)
 (only if you already have emcee from conda: `conda uninstall emcee`)
+
+
 `git clone https://github.com/dfm/emcee.git`
+
+
 `cd emcee`
+
+
 `sudo python3 setup.py install`
+
 
 ## How to use :
 
