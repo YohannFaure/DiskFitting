@@ -13,12 +13,26 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import math
 import corner
+import matplotlib as mpl
+
+"""
+mpl.use('pgf')
+pgf_with_rc_fonts = {
+    "font.family": "serif",
+    "font.serif": [],                   # use latex default serif font
+    "font.sans-serif": [], # use a specific sans-serif font
+    "font.size": 8}
+
+mpl.rcParams.update(pgf_with_rc_fonts)
+plt.style.use('dark_background')
+"""
 
 
 def multiplot(samples,figshape=None,size=(20,25),save=None,limits=None):
     """Plots the parameters in function of time
     """
     ##### get info
+    samples=samples[:,::10,:]
     nwalkers,iterations,ndims = samples.shape
     ##### set size of the figure
     if figshape:
@@ -30,9 +44,10 @@ def multiplot(samples,figshape=None,size=(20,25),save=None,limits=None):
     fig, axes = plt.subplots(nrows=nrows,ncols=ncols, figsize=size, sharex=True)
     for i in range(ndims):
         ax = axes.flatten()[i]
-        _=ax.plot(np.transpose(samples[:, :, i]), "k", alpha=0.3)
+        _=ax.plot(np.transpose(samples[:, :, i]), "k", alpha=0.2)
         _=ax.set_xlim(0, iterations)
         _=ax.set_ylabel(labels[i])
+        ax.grid(True)
     #    _=ax.yaxis.set_label_coords(-0.1, 0.5)
         if limits:
             thetaminbis,thetamaxbis=limits
@@ -42,7 +57,7 @@ def multiplot(samples,figshape=None,size=(20,25),save=None,limits=None):
     plt.tight_layout()
     ##### save
     if save:
-        plt.savefig('results/{}_multiplot.png'.format(save),dpi=600)
+        plt.savefig('results/{}_multiplot.pgf'.format(save))
     else:
         plt.show()
     return(None)
@@ -51,11 +66,12 @@ def cornerplot(samples,labels,save=None):
     """Just makes a cornerplot, but makes it easier
     Beware of the segmentation faults..."""
     nwalkers,iterations,ndims = samples.shape
-    ndims=min(30,ndims)
+    ndims=min(6,ndims)
     cornering=(samples[:,-iterations//2:,:ndims].reshape((-1,ndims)))
     fig = corner.corner(cornering, quantiles=[0.16, 0.50, 0.84],labels=labels[:ndims],show_titles=True,label_kwargs={'labelpad':20, 'fontsize':0}, fontsize=8)
+    fig.set_size_inches(6,3.2)
     if save:
-        fig.savefig("results/{}_cornerplot.png".format(save),dpi=300)
+        fig.savefig("results/{}_cornerplot.pgf".format(save))
     else:
         fig.show()
     return(None)
@@ -80,5 +96,5 @@ if __name__=="__main__":
     else:
         save = None
     multiplot(samples,figshape=figshape,size=size,save=save,limits=(thetaminbis,thetamaxbis))
-    cornerplot(samples,labels,save=save)
+    #cornerplot(samples,labels,save=save)
 

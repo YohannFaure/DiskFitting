@@ -27,7 +27,15 @@ l=['/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_
 '/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part2.npy',
 '/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_5000part3.npy',
 '/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part4.npy',
-'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part5.npy']
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part5.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part6.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part7.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part8.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part9.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part10.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part11.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part12.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part13.npy']
 
 
 xxx=merger_rec(l)
