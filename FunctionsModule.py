@@ -78,6 +78,13 @@ def deprojectedcoordinates(x,y,inc,pa):
     angles=np.arctan2(xx,yy)
     return(xx,yy,rr,angles)
 
+def deprojectedcoordinatespairs(pair,inc,pa):
+    x,y=pair
+    xx,yy=deproject(x,y,inc,pa)
+    rr=np.sqrt(xx**2+yy**2)
+    angles=np.arctan2(xx,yy)
+    return(xx,yy,rr,angles)
+
 def angular_difference(i, j):
     '''
     Calculates the difference between two angles (deg).
