@@ -44,7 +44,7 @@ thetamin=np.array([ 0., -10 ,-10 , 5, 5, -np.pi-0.1, #
         0, 0, 0.01, 0.01, 0.01, -10, -10, 5, 5, -np.pi-0.1, #
         0, -10, -10, 5, 200, 200, -np.pi-0.1, #
         0, -15, -15, 10, 100, 100, -np.pi-0.1, #
-        0.0001, -5, -5, 5, 10, 10, -np.pi-0.01],dtype=np.float64) #
+        0.0001, -5, -5, 5, 10, 10, -np.pi-0.1],dtype=np.float64) #
 
 ##### set the model
 model.parameters = theta
