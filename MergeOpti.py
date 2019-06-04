@@ -37,7 +37,7 @@ def merger_rec(l):
 #'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part12.npy',
 #'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part13.npy']
 
-l=['/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/BigOpti.npy','/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part15.npy']
+l=['/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/BigOpti.npy','/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part16.npy']
 
 
 xxx=merger_rec(l)
