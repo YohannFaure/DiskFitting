@@ -95,6 +95,6 @@ if __name__=="__main__":
         save = args.save
     else:
         save = None
-    multiplot(samples,figshape=figshape,size=size,save=save,limits=(thetaminbis,thetamaxbis))
+    multiplot(samples,figshape=figshape,size=size,save=save)#,limits=(thetaminbis,thetamaxbis))
     #cornerplot(samples,labels,save=save)
 
