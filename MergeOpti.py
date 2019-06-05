@@ -23,23 +23,39 @@ def merger_rec(l):
         a=len(l)//2
         return( mergetworesults(merger_rec(l[:a]),merger_rec(l[a:])) )
 
-#l=['/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_5000.npy',
-#'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part2.npy',
-#'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_5000part3.npy',
-#'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part4.npy',
-#'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part5.npy',
-#'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part6.npy',
-#'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part7.npy',
-#'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part8.npy',
-#'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part9.npy',
-#'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part10.npy',
-#'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part11.npy',
-#'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part12.npy',
-#'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part13.npy']
+def merger(l):
+    samples,_,_,_ =np.load(l[0])
+    for i in range(1,len(l)):
+        aaa,_,_,_=np.load(l[i])
+        samples = mergetworesults(samples,aaa)
+    return(samples)
 
-l=['/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/BigOpti.npy','/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part16.npy']
+l=['/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_5000.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part2.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_5000part3.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part4.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part5.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part6.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part7.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part8.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part9.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part10.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part11.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part12.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part13.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part14.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part15.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part16.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part17.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part18.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part19.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part20.npy',
+'/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_1000part21.npy']
 
 
-xxx=merger_rec(l)
+
+#xxx=merger_rec(l)
+xxx=merger(l)
+
 _,a,b,c=np.load(l[-1])
 np.save('/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/BigOpti.npy',(xxx,a,b,c))
