@@ -90,11 +90,11 @@ if __name__=="__main__":
     args = parser.parse_args()
     ##### Open the data
     #location = '/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_5000part3.npy'
-    samples,thetaminbis,thetamaxbis,labels = np.load(args.location)
+    samples,thetaminbis,thetamaxbis,labels = np.load(args.location,allow_pickle=True)
     # thetamin and thetamax are defined in the ModelingEmcee.py file. It correspnds to the limits of the fitting. Labels are just the names of the parameters
     size=eval(args.size)
     figshape=eval(args.figshape)
     save=args.save
-    #multiplot(samples,labels,figshape=figshape,size=size,save=save)#,limits=(thetaminbis,thetamaxbis))
+    multiplot(samples,labels,figshape=figshape,size=size,save=save,limits=(thetaminbis,thetamaxbis))
     cornerplot(samples,labels=None,save=save)
 

@@ -13,20 +13,20 @@ def mergetworesults(a,b):
 
 def merger_rec(l):
     if len(l)==1:
-        samples,_,_,_ =np.load(l[0])
+        samples,_,_,_ =np.load(l[0],allow_pickle=True)
         return(samples)
     elif len(l)==2:
-        a,_,_,_ =np.load(l[0])
-        b,_,_,_ =np.load(l[1])
+        a,_,_,_ =np.load(l[0],allow_pickle=True)
+        b,_,_,_ =np.load(l[1],allow_pickle=True)
         return(mergetworesults(a,b))
     else :
         a=len(l)//2
         return( mergetworesults(merger_rec(l[:a]),merger_rec(l[a:])) )
 
 def merger(l):
-    samples,_,_,_ =np.load(l[0])
+    samples,_,_,_ =np.load(l[0],allow_pickle=True)
     for i in range(1,len(l)):
-        aaa,_,_,_=np.load(l[i])
+        aaa,_,_,_=np.load(l[i],allow_pickle=True)
         samples = mergetworesults(samples,aaa)
     return(samples)
 
@@ -58,5 +58,5 @@ l=['results/optimization/opti_37_300_5000.npy',
 #xxx=merger_rec(l)
 xxx=merger(l)
 
-_,a,b,c=np.load(l[-1])
+_,a,b,c=np.load(l[-1],allow_pickle=True)
 np.save('results/optimization/BigOpti.npy',(xxx,a,b,c))
