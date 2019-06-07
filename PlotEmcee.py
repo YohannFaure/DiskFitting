@@ -28,25 +28,26 @@ plt.style.use('dark_background')
 """
 
 
-def multiplot(samples,figshape=None,size=(20,25),save=None,limits=None):
+def multiplot(samples,labels=None,figshape=None,size=(20,25),save=None,limits=None):
     """Plots the parameters in function of time
     """
     ##### get info
-    samples=samples[:,::10,:]
-    nwalkers,iterations,ndims = samples.shape
+    samplesbis=samples[:,::10,:]
+    nwalkers,iterations,ndims = samplesbis.shape
     ##### set size of the figure
     if figshape:
-        ncols,nrow=figshape
+        ncols,nrows=figshape
     else:
-        ncols = 4
+        ncols = 3
         nrows =math.ceil( ndims / ncols )
     ##### plot
     fig, axes = plt.subplots(nrows=nrows,ncols=ncols, figsize=size, sharex=True)
     for i in range(ndims):
         ax = axes.flatten()[i]
-        _=ax.plot(np.transpose(samples[:, :, i]), "k", alpha=0.2)
+        _=ax.plot(np.transpose(samplesbis[:, :, i]), "k", alpha=0.2)
         _=ax.set_xlim(0, iterations)
-        _=ax.set_ylabel(labels[i])
+        if labels:
+            _=ax.set_ylabel(labels[i])
         ax.grid(True)
     #    _=ax.yaxis.set_label_coords(-0.1, 0.5)
         if limits:
@@ -62,18 +63,20 @@ def multiplot(samples,figshape=None,size=(20,25),save=None,limits=None):
         plt.show()
     return(None)
 
-def cornerplot(samples,labels,save=None):
+def cornerplot(samples,labels=None,save=None):
     """Just makes a cornerplot, but makes it easier
     Beware of the segmentation faults..."""
     nwalkers,iterations,ndims = samples.shape
     ndims=min(6,ndims)
-    cornering=(samples[:,-iterations//2:,:ndims].reshape((-1,ndims)))
-    fig = corner.corner(cornering, quantiles=[0.16, 0.50, 0.84],labels=labels[:ndims],show_titles=True,label_kwargs={'labelpad':20, 'fontsize':0}, fontsize=8)
-    fig.set_size_inches(6,3.2)
+    cornering=(samples[:,-1000:,:ndims].reshape((-1,ndims)))
+    if labels:
+        fig = corner.corner(cornering, quantiles=[0.16, 0.50, 0.84],labels=labels[:ndims],show_titles=True,label_kwargs={'labelpad':20, 'fontsize':0}, fontsize=8)
+    else :
+        fig = corner.corner(cornering, quantiles=[0.16, 0.50, 0.84],label_kwargs={'labelpad':20, 'fontsize':0}, fontsize=8)
     if save:
         fig.savefig("results/{}_cornerplot.pgf".format(save))
     else:
-        fig.show()
+        plt.show()
     return(None)
 
 
@@ -91,10 +94,7 @@ if __name__=="__main__":
     # thetamin and thetamax are defined in the ModelingEmcee.py file. It correspnds to the limits of the fitting. Labels are just the names of the parameters
     size=eval(args.size)
     figshape=eval(args.figshape)
-    if args.save :
-        save = args.save
-    else:
-        save = None
-    multiplot(samples,figshape=figshape,size=size,save=save)#,limits=(thetaminbis,thetamaxbis))
-    #cornerplot(samples,labels,save=save)
+    save=args.save
+    #multiplot(samples,labels,figshape=figshape,size=size,save=save)#,limits=(thetaminbis,thetamaxbis))
+    cornerplot(samples,labels=None,save=save)
 
