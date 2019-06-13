@@ -16,6 +16,7 @@ import corner
 import matplotlib as mpl
 
 """
+##### For pgf exportation
 mpl.use('pgf')
 pgf_with_rc_fonts = {
     "font.family": "serif",
@@ -32,7 +33,7 @@ def multiplot(samples,labels=None,figshape=None,size=(20,25),save=None,limits=No
     """Plots the parameters in function of time
     """
     ##### get info
-    samplesbis=samples[:,-1000:,:]
+    samplesbis=samples[:,:,:]
     nwalkers,iterations,ndims = samplesbis.shape
     ##### set size of the figure
     if figshape:
@@ -44,17 +45,16 @@ def multiplot(samples,labels=None,figshape=None,size=(20,25),save=None,limits=No
     fig, axes = plt.subplots(nrows=nrows,ncols=ncols, figsize=size, sharex=True)
     for i in range(ndims):
         ax = axes.flatten()[i]
-        _=ax.plot(np.transpose(samplesbis[:, :, i]), "k", alpha=0.2)
-        _=ax.set_xlim(0, iterations)
+        ax.plot(np.transpose(samplesbis[:, :, i]), "k", alpha=0.2)
+        ax.set_xlim(0, iterations)
         if labels:
-            _=ax.set_ylabel(labels[i])
+            ax.set_ylabel(labels[i])
         ax.grid(True)
-    #    _=ax.yaxis.set_label_coords(-0.1, 0.5)
         if limits:
             thetaminbis,thetamaxbis=limits
-            _=ax.plot([0,iterations],[thetaminbis[i],thetaminbis[i]])
-            _=ax.plot([0,iterations],[thetamaxbis[i],thetamaxbis[i]])
-    _=ax.set_xlabel('iterations')
+            ax.plot([0,iterations],[thetaminbis[i],thetaminbis[i]])
+            ax.plot([0,iterations],[thetamaxbis[i],thetamaxbis[i]])
+    ax.set_xlabel('iterations')
     plt.tight_layout()
     ##### save
     if save:
@@ -68,7 +68,7 @@ def cornerplot(samples,labels=None,save=None):
     Beware of the segmentation faults..."""
     nwalkers,iterations,ndims = samples.shape
     ndims=min(6,ndims)
-    cornering=(samples[:,-100:,:ndims].reshape((-1,ndims)))
+    cornering=(samples[:,-500:,:ndims].reshape((-1,ndims)))
     if labels:
         fig = corner.corner(cornering, quantiles=[0.16, 0.50, 0.84],labels=labels[:ndims],show_titles=True,label_kwargs={'labelpad':20, 'fontsize':0}, fontsize=8)
     else :
@@ -87,14 +87,17 @@ if __name__=="__main__":
     parser.add_argument("--figshape", help = "Shape of the multiple plot.",type = str,default="None")
     parser.add_argument("--size", help = "Size of the multiple plot.",type = str,default="(20,25)")
     parser.add_argument("--save", help = "Will not plot the result and only give it if present.",type = str, default=None)
+    parser.add_argument("--limits", help='show the limits of the optimization.', action='store_true')
     args = parser.parse_args()
     ##### Open the data
-    #location = '/home/yohann/Desktop/Stage2019/DiskFitting/results/optimization/opti_37_300_5000part3.npy'
-    samples,thetaminbis,thetamaxbis,labels = np.load(args.location,allow_pickle=True)
+    samples,thetaminbis,thetamaxbis,labels = np.load(args.location)
     # thetamin and thetamax are defined in the ModelingEmcee.py file. It correspnds to the limits of the fitting. Labels are just the names of the parameters
     size=eval(args.size)
     figshape=eval(args.figshape)
     save=args.save
-    multiplot(samples,labels,figshape=figshape,size=size,save=save,limits=(thetaminbis,thetamaxbis))
+    if args.limits:
+        multiplot(samples, labels, figshape=figshape, size=size, save=save, limits=(thetaminbis,thetamaxbis))
+    else :
+        multiplot(samples, labels, figshape=figshape, size=size, save=save)
     cornerplot(samples,labels=None,save=save)
 
