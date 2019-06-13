@@ -1,4 +1,4 @@
-# DiskFitting : fitting J1615
+# DiskFitting : fitting a Protoplanetary Disk
 
 This package was designed to fit J1615 protoplanetary disk in the image plane, but is quite general and can be adapted quite easily to other disks.
 
@@ -34,6 +34,8 @@ It is a module with many usefull functions. Each function is described in the co
 ### `TiltFinder`
 
 It finds the tilt of a Quasi-Gaussian image, *i.e.* the inclination and position angle of the image, using a classical gradient descent optimization
+
+The inc and pa will then be used to compute a mesh in the rotation plane, making the computation faster.
 
 To use it, call `python3 TiltFinder.py J1615_edit.fits`
 
@@ -82,3 +84,10 @@ Can be used to merge optimization files.
 ### `Legacy`
 
 Random bits of code that migh be usefull one day.
+
+## Contact and conditions
+
+If you need help feel free to contact me
+faure(dot)yohann(at)gmail(dot)com
+
+You can branch and improve this code freely.
