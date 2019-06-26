@@ -35,7 +35,7 @@ def GaussianRing(xx, yy, amplitude=1., xc=0., yc=0., width=1., a=1.,b=1.,theta=0
     # compute distance to the ellipse
     u=np.sqrt(((x*c+y*s)/a)**2.+((y*c-x*s)/b)**2.) - 1.
     # compute gaussian
-    return( amplitude * np.exp(  ( -.5*(a*b)*(width)**-2. ) * (u**2.) ) ) 
+    return( amplitude * np.exp(  ( -.5*(a*b)*(width)**-2. ) * (u**2.) ) )
 
 
 @models.custom_model
@@ -134,6 +134,12 @@ def EvolutionPlot(samples,nrows,ncols,figsize=(20,20),labels=None,limits=None):
             _=ax.yaxis.set_label_coords(-0.1, 0.5)
         plt.show()
     return(None)
+
+def ExtractPercentiles(samples):
+    """returns the .15, median and .85 percentiles of the emcee distribution"""
+    ndims=samples.shape[-1]
+    cornering=(samples.reshape((-1,ndims)))
+    return(np.percentile(cornering,[0.15,0.5,0.85],axis=0))
 
 
 if __name__=='__main__':

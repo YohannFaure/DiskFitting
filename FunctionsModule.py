@@ -5,14 +5,6 @@
 Basinc data fitting functions for astrophysics.
 Python3.7
 
-Universidad de Chile
-Facultad de Ciencias Fisicas y Matematicas
-Departamento de Astronomia
-
-Nicolas Troncoso Kurtovic
-Magister en Ciencias, Mencion Astronomia
-Contact: nicokurtovic at gmail.com
-
 Yohann Faure
 ENS de Lyon
 yohann.faure@ens-lyon.fr

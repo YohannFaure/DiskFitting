@@ -4,7 +4,7 @@
 '''
 This is designed to make some plots with an already generated samplers list.
 
-usage example : 
+usage example :
 python3 PlotEmcee.py results/optimization/opti_37_300_1000part5.npy --save hahaha --size '(11.25,15)'
 '''
 
@@ -100,4 +100,3 @@ if __name__=="__main__":
     else :
         multiplot(samples, labels, figshape=figshape, size=size, save=save)
     cornerplot(samples,labels=None,save=save)
-

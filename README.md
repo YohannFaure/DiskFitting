@@ -81,6 +81,10 @@ Does the same but using a different method, based on not tilting the Mesh and us
 
 Can be used to merge optimization files.
 
+### `QuadPlotImageEmcee.py`
+
+Plots an image for a emcee optimization. It is quite custom.
+
 ### `Legacy`
 
 Random bits of code that migh be usefull one day.
