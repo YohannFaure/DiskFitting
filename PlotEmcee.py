@@ -33,7 +33,7 @@ def multiplot(samples,labels=None,figshape=None,size=(20,25),save=None,limits=No
     """Plots the parameters in function of time
     """
     ##### get info
-    samplesbis=samples[:,:,:]
+    samplesbis=samples[:,::10,:]
     nwalkers,iterations,ndims = samplesbis.shape
     ##### set size of the figure
     if figshape:
